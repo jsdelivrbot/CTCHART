@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>group bar chart test</title>
+
+    <script src='../bower_components/webcomponentsjs/webcomponents-lite.js'></script>
+    <script src='../bower_components/web-component-tester/browser.js'></script>
+
+
+    <link rel="import" href="../element/group-bar-chart.html">
+</head>
+<body>
+<test-fixture id="chart_fixture">
+    <template>
+        <group-bar-chart></group-bar-chart>
+    </template>
+</test-fixture>
+<script>
+  suite('group-bar-chart', function () {
+    var chart_element;
+
+    setup(function () {
+      chart_element = fixture('chart_fixture');
+    });
+
+    test('Instantiating the element works', function () {
+      assert.equal(chart_element.is, 'group-bar-chart');
+    });
+    test('To check title should not be empty', function () {
+      assert.notEqual(chart_element.properties.chart_title, null);
+    });
+    test('To check zoombar box should be shown', function () {
+      assert.equal(chart_element.properties.data_toggle.value, 'show');
+    });
+    test('To check timespan should not be empty', function () {
+      assert.notEqual(chart_element.properties.chart_time, null);
+    });
+  });
+
+</script>
+</body>
+</html>

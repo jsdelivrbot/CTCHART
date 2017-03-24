@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>my-element test</title>
+
+    <script src='../bower_components/webcomponentsjs/webcomponents-lite.js'></script>
+    <script src='../bower_components/web-component-tester/browser.js'></script>
+
+    <link rel="import" href="../element/chart-setting.html">
+
+</head>
+<body>
+<test-fixture id="setting_fixture">
+    <template>
+        <chart-setting></chart-setting>
+    </template>
+</test-fixture>
+<script>
+  suite('chart-setting', function () {  //suit name should be name of component
+    var setting_element;
+
+    setup(function () {
+      setting_element = fixture('setting_fixture');
+    });
+
+    test('Instantiating the element works', function () {
+      assert.equal(setting_element.is, 'chart-setting');
+    });
+
+    test('To check data type of chart data', function () {
+      assert.equal(setting_element.properties.data.type, Array);
+    });
+
+    test('To check dropdown default value set or not', function () {
+      assert.equal(setting_element.properties.layout_type.value, 'Vertical Grouped Chart');
+    });
+
+    test('To check timespan default value set or not', function () {
+      assert.notEqual(setting_element.properties.time, null);
+    });
+
+    test('To check drilldown button selected or not', function () {
+      assert.equal(setting_element.properties.checked.value, true);
+    });
+  });
+
+</script>
+</body>
+</html>
+

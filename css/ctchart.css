@@ -1,0 +1,123 @@
+/*----------------------------Media query-----------------------------------------*/
+@media only screen and (max-device-width: 720px) {
+    .left {
+        width: 100% !important;
+        height: 500px !important;
+    }
+
+    .right {
+        width: 100% !important;
+        float: left;
+    }
+
+    #container {
+        width: 300px !important;
+        height: 300px !important;
+        background-color: white;
+        margin-bottom: 10%;
+        align:center;
+    }
+
+    #box {
+        width: 150px !important;
+        height: 40px !important;
+        margin-top: 10% !important;
+    }
+
+    .group-bar-chart {
+        padding: 5px !important;
+    }
+}
+
+@media screen and (min-device-width: 750px) and (max-device-width: 1024px) {
+
+    .left {
+        width: 100% !important;
+        height: 500px !important;
+    }
+
+    .group-bar-chart {
+        padding: 5px !important;
+    }
+
+    .right {
+        width: 100% !important;
+        float: left;
+    }
+
+    #box {
+        width: 150px !important;
+        height: 40px !important;
+        margin-top: 5% !important;
+        margin-bottom: 5% !important;
+    }
+
+    #container {
+        width: 300px !important;
+        height: 300px !important;
+        background-color: white;
+        margin-bottom: 0%;
+    }
+}
+
+/*----------------------------Chart CSS-----------------------------------------*/
+.fullWidth {
+    width: 100%;
+    height: 100%;
+}
+
+.left {
+    width: 70%;
+    float: left;
+    position: relative;
+    background-color: #efefef;
+}
+
+.right {
+    width: 30%;
+    float: right;
+}
+
+.pullLeft {
+    float: left;
+    margin-left: 5%;
+}
+
+.pullRight {
+    float: right;
+}
+
+#box {
+
+    width: 30%;
+    height: 100px;
+    background-color: white;
+    border: solid 1px silver;
+    margin-top: 15%;
+    margin-bottom: 10%;
+}
+
+#container {
+    width: 60%;
+    height: 50%;
+    background-color: white;
+    margin-top: 10%;
+}
+
+/*To show and hide zoomchart box*/
+.show {
+    visibility: visible;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.chartTitle {
+    font-weight: bold;
+    padding: 20px;
+}
+
+.text-input {
+    padding: .33333rem;
+}

@@ -1,0 +1,127 @@
+<!-- <link rel="import" href="../bower_components/px-chart/px-chart.html"/> -->
+<link rel="import" href="/bower_components/px-simple-bar-chart/px-simple-bar-chart.html"/>
+<link rel="import" href="/bower_components/px-simple-horizontal-bar-chart/px-simple-horizontal-bar-chart.html"/>
+
+<dom-module id="group-bar-chart">
+    <template>
+        <center>
+            <div id="container">
+                <div class="chartTitle">{{chart_title}}</div>
+                <div style=" padding: 100px;">
+                    <template is="dom-if" if="{{showChart(chart_type,1)}}">
+                        <px-simple-bar-chart chart-data$="{{chart_dataval}}" style="margin:auto" class$="{{display}}">
+                        </px-simple-bar-chart>
+                        <div class="pullLeft">
+                            <small>{{chart_time}}</small>
+                        </div>
+                    </template>
+                    <template is="dom-if" if="{{showChart(chart_type,2)}}">
+                        <px-simple-horizontal-bar-chart chart-data$="{{chart_dataval}}" class$="{{display}}">
+                        </px-simple-horizontal-bar-chart>
+                    </template>
+                    <template is="dom-if" if="{{showChart(chart_type,3)}}">
+                        <px-simple-bar-chart chart-data$="{{chart_dataval}}" style="margin:auto" class$="{{display}}">
+                        </px-simple-bar-chart>
+                    </template>
+                    <template is="dom-if" if="{{showChart(chart_type,4)}}">
+                        <h3>Not Available</h3>
+                    </template>
+                </div>
+            </div>
+            <div id="box" class$="{{data_toggle}}"></div>
+        </center>
+
+    </template>
+    <script>
+
+      Polymer({
+        is: 'group-bar-chart',
+        properties: {
+          chart_dataval: {
+            type: Array,
+            value: function () {
+              return defaultChartData;
+            }
+          },
+          chart_title: {
+            type: String,
+            value: "Vertical Grouped Chart",
+            observer: '_showDefaultTitle'
+          },
+          chart_type: {
+            type: String,
+            value: "Vertical Grouped Chart"
+          },
+          chart_time: {
+            type: String,
+            value: "6 months"
+          },
+          ischecked: {
+            type: Boolean,
+            value: true,
+            observer: '_showHideBox'
+          },
+          data_toggle: {
+            type: String,
+            value: "show"
+          },
+          display: {
+            type: String,
+            value: "displayBlock"
+          }
+
+
+        },
+        showChart: function (type, args) {
+          var res;
+            /*	if(type == "Vertical Grouped Chart" && args=="1")
+             {
+             res = true;
+             }
+             else if(type == "Horizontal Grouped Chart" && args=="2")
+             {
+
+             res = true;
+             }
+             else if(type == "Vertical Stacked Chart" && args=="3")
+             {
+
+             res = true;
+             }
+             else if(type == "Horizontal Stacked Chart" && args=="4")
+             {
+             res = true;
+             }
+             else
+             {
+             res =false;
+             }*/
+
+          <!--CHANGED AFTER REVIEW -->
+          switch (type + "|" + args) {
+            case 'Vertical Grouped Chart|1':
+            case 'Horizontal Grouped Chart|2':
+            case 'Vertical Stacked Chart|3': {
+              res = true;
+              break;
+            }
+            default:
+              res = false;
+          }
+
+          return res;
+
+        },
+        _showDefaultTitle: function () {
+
+          //this.chart_title = !this.chart_title ?  'Vertical Grouped Chart' : this.chart_title;//!this.chart_title ? 'teste' : this.chart_title;
+          <!--CHANGED AFTER REVIEW -->
+          this.chart_title = this.chart_title || 'Vertical Grouped Chart';
+        },
+        _showHideBox: function () {
+          this.data_toggle = this.ischecked ? 'show' : 'hide';
+
+        },
+      });
+    </script>
+</dom-module>

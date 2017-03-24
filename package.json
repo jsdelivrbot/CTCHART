@@ -1,0 +1,23 @@
+{
+  "name": "ctchart",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilampadval/CTCHART.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nilampadval/CTCHART/issues"
+  },
+  "coverage": "istanbul cover ./test.js",
+  "homepage": "https://github.com/nilampadval/CTCHART#readme",
+  "description": ""
+}

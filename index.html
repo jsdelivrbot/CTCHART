@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Polymer Element</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <!--links -->
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="import" href="/bower_components/polymer/polymer.html"/>
+    <link rel="import" href="/bower_components/px-theme/px-theme-styles.html">
+    <link rel="import" href="/bower_components/px-card/px-card.html">
+    <link rel="import" href="/bower_components/px-simple-bar-chart/px-simple-bar-chart.html"/>
+    <style include="px-theme-styles" is="custom-style"></style>
+    <!-- <link rel="import" href="/bower_components/px-widget-cards/px-twoup.html"/> -->
+    <link rel="import" href="/element/group-bar-chart.html"/>
+    <link rel="import" href="/element/chart-setting.html"/>
+
+    <!--style -->
+    <link rel="stylesheet" type="text/css" href="/css/ctchart.css">
+
+</head>
+<body>
+
+<template is="dom-bind">
+    <!--  <px-twoup id="widget-2" class="fullWidth"> -->
+    <div class="fullWidth">
+        <div class='left'>
+            <group-bar-chart chart_title="{{title}}" chart_type="{{layout_type}}" chart_time="{{time}}"
+                             chart_dataval="{{data}}" ischecked="{{checked}}"></group-bar-chart>
+        </div>
+        <div class='right'>
+            <chart-setting title="{{title}}" layout_type="{{layout_type}}" time="{{time}}" data="{{data}}"
+                           checked="{{checked}}"></chart-setting>
+        </div>
+        <!-- 	</px-twoup> -->
+    </div>
+
+</template>
+</body>
+</html>

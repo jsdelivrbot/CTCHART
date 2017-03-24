@@ -1,0 +1,217 @@
+<link rel="import" href="../bower_components/px-toggle/px-toggle.html"/>
+<link rel="import" href="../bower_components/px-dropdown/px-dropdown.html"/>
+
+<dom-module id="chart-setting">
+
+    <template>
+        <px-card>
+            <span style="float:left" class="chart_setting_title">SETTINGS</span>
+            <span style="float:right;font-weight:bold">GROUPED BAR CHART</span>
+            <br/><br/>
+            <hr></hr>
+            <table cellspacing="20px">
+                <tr>
+                    <td><label for="title">Title</label></td>
+                    <td><input id="title" class="text-input" placeholder="Enter Title" type="text"
+                               value="{{title::input}}"></td>
+                </tr>
+                <tr>
+                    <td><label>Layout</label></td>
+                    <td>
+                        <px-dropdown display-value="Vertical Grouped Chart" selected-key="1" id='chartType'>
+                            <px-dropdown-content extend-dropdown='true' extend-dropdown-by='25'
+                                                 max-cont-character-width='10'
+                                                 items='[
+							{"key":"1","val":"Vertical Grouped Chart"},
+							{"key":"2","val":"Horizontal Grouped Chart"},
+							{"key":"3","val":"Vertical Stacked Chart"},
+							{"key":"4","val":"Horizontal Stacked Chart"} ]'>
+                            </px-dropdown-content>
+                        </px-dropdown>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Timespan</label></td>
+                    <td>
+                        <px-dropdown display-value="6 Months" selected-key="3" id='chartTime'>
+                            <px-dropdown-content extend-dropdown='true' extend-dropdown-by='25'
+                                                 max-cont-character-width='10'
+                                                 items='[
+								{"key":"1","val":"1 Day"},
+								{"key":"2","val":"3 Day"},
+								{"key":"3","val":"6 Months"}
+							]'>
+                            </px-dropdown-content>
+                        </px-dropdown>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Refresh Rate</label></td>
+                    <td>
+                        <px-dropdown display-value="1 hour" selected-key="1">
+                            <px-dropdown-content extend-dropdown='true' extend-dropdown-by='25'
+                                                 max-cont-character-width='10'
+                                                 items='[
+								{"key":"1","val":"1 hour"},
+								{"key":"2","val":"2 hour"},
+								{"key":"3","val":"3 hour"}
+							]'>
+                            </px-dropdown-content>
+                        </px-dropdown>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <div>DATA</div>
+            <br>
+            <hr></hr>
+            <input name="chartData" type="text" id="chartData" style="width:80%;padding:.33333rem;">
+            <button id="btnData" name="data[]" on-click="_addChartData" style="padding:.33333rem;">Save</button>
+            <br><br>
+            <hr></hr>
+            <div>SETTINGS</div>
+            <hr></hr>
+            <p><span>DrillDown</span>
+                <span style="float:right">
+					<px-toggle size="regular (default)" id="toggleBtn" checked>
+					</px-toggle>
+					</span></p>
+            <p>click on a bar or legend to view the items it represents</p>
+        </px-card>
+    </template>
+
+    <script>
+
+      var defaultChartData = "[[9,1,2,3,4,5]]";
+      Polymer({
+        is: 'chart-setting',
+
+        properties: {
+          title: {
+            type: String,
+            value: "Vertical Grouped Chart",
+            notify: true
+          },
+          layout_type: {
+            type: String,
+            value: "Vertical Grouped Chart",
+            notify: true
+          },
+          time: {
+            type: String,
+            value: "6 months",
+            notify: true
+          },
+          checked: {
+            type: Boolean,
+            value: true,
+            notify: true
+          },
+          data: {
+            type: Array,
+            value: function () {
+              return defaultChartData;
+            },
+            notify: true
+          }
+        },
+        listeners: {
+          'chartType.px-dropdown-value-changed': 'itemSelected',
+          'chartTime.px-dropdown-value-changed': 'timeSelected',
+          'toggleBtn.tap': 'checkedChanged'
+
+        },
+        itemSelected: function (e) {
+          this.layout_type = e.detail.val;
+          this.title = this.layout_type;
+
+          defaultChartData = this._addChartData();
+          this.data = defaultChartData;
+        },
+        timeSelected: function (e) {
+          this.time = e.detail.val;
+
+        },
+        checkedChanged: function (e) {
+          this.checked = !this.checked;
+        },
+
+        isJSON: function (data) {
+          var ret = true;
+          try {
+            JSON.parse(data);
+          } catch (e) {
+            ret = false;
+          }
+          return ret;
+        },
+
+        _addChartData: function (e) {
+          var inputArr = [];
+
+          if (document.querySelector('#chartData').value != "") {
+            inputArr = document.querySelector('#chartData').value;
+          }
+          else {
+            inputArr = "[[1,2,3],[2,3,4],[4,5,6]]";
+          }
+
+          var parsed;
+          var arr = [];
+          var arr2 = [];
+          var arr3 = [];
+
+          if (this.isJSON(inputArr)) {
+
+            parsed = JSON.parse(inputArr);
+            arr = parsed;
+            arr3 = parsed[0];
+            arr2.push(arr3);
+
+          }
+          else {
+
+            alert('Data is not correct format : Required 2D array');
+            return false;
+          }
+
+
+            /*if(this.layout_type === 'Vertical Grouped Chart'){
+             this.data =arr2;
+             }
+             if(this.layout_type === 'Vertical Stacked Chart')
+             {
+
+             this.data = arr;
+
+             }
+             if(this.layout_type === 'Horizontal Grouped Chart')
+             {
+
+             this.data =arr3;
+             }*/
+          <!--CHANGED AFTER REVIEW -->
+          switch (this.layout_type) {
+            case 'Vertical Grouped Chart': {
+              this.data = arr2;
+              break;
+            }
+            case 'Horizontal Grouped Chart': {
+              this.data = arr3;
+              console.log(this.data);
+              break;
+            }
+            case 'Vertical Stacked Chart': {
+              this.data = arr;
+              break;
+            }
+            default:
+              this.data = {};
+          }
+          return this.data;
+
+        }
+      });
+    </script>
+
+</dom-module>
